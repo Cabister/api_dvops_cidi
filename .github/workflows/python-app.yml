@@ -54,5 +54,23 @@ jobs:
           push: true
           tags: cabister/api_homologacao:latest
             
-      
+      deploy:
+        needs: Images
+        runs-on: ubuntu_latest
+
+      steps:
+
+        -name: Deploy na EC2
+        uses: appleboy/ssh-action@v1.0.3
+        widh:
+          host: 44.209.174.245 
+          username: ubuntu
+          key: ${{secrets.CHAVE}}
+          script: |
+            echo "Acesso Liberado"
+            sudo docker pull cabister/api_homologacao:latest
+            sudo docker stop api_homologacao 2>/dev/null || true
+            sudo docker rm api_homologacao 2>/dev/null || true
+
+            sudodocker run --name api_homologacao -d -p 80:80 cabister/api_homologacao:latest
 
