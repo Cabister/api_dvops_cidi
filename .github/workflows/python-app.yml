@@ -55,7 +55,7 @@ jobs:
         with:
           host: 32.195.119.50
           username: ubuntu
-          key: ${{secrets.CHAVE_producao}}
+          key: ${{secrets.CHAVE_PRODUCAO}}
           script: |
             echo "Acesso liberado!"
             sudo docker pull cabister/api_producao:latest
